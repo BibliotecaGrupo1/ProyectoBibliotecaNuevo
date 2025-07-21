@@ -109,6 +109,20 @@ namespace ProyectoBiblioteca
                     Console.WriteLine("¡Inicio de sesión exitoso!");
                     Console.WriteLine("Bienvenido, " + usuario + "!");
                     Console.ReadLine();
+                    Console.WriteLine("Ingrese su libro a buscar por (codigo, nombre, autor o año) : ");
+                    String busqueda = Console.ReadLine();
+                    Libro objLibroConsulta = Base.BaseDeDatos.GetLibroPorCodigo(busqueda);
+                    if (objLibroConsulta == null)
+                    {
+                        Console.WriteLine("No se encontró un libro con la busqueda proporcionada.");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Libro encontrado:");
+                        objLibroConsulta.Imprimir();
+                    }
+                    Console.ReadLine();
                     break;
                 }
                 else

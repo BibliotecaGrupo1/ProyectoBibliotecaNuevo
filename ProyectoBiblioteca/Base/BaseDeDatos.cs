@@ -16,5 +16,18 @@ namespace ProyectoBiblioteca.Base
         public static List<UsuarioLogro> BaseDatosUsuarioLogros = new List<UsuarioLogro>();
         public static List<Logro> BaseDatosLogros = new List<Logro>();
 
+    
+
+     public static Libro GetLibroPorCodigo(string codigo)
+        {
+            foreach (var item in BaseDatosLibros)
+            {
+                if (item.getCodigo() == codigo)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 }
