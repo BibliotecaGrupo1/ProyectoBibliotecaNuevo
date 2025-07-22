@@ -7,47 +7,51 @@ using System.Threading.Tasks;
 
 namespace ProyectoBiblioteca.Clases
 {
+    [Serializable]
     // Esta clase representa un usuario en la biblioteca
     public class Usuario
     {
-
         private int Id;
         private string Nombres;
         private string Apellidos;
+        private DateTime Fecha_Nacimiento;
+        private int edad;
         private string NombreUsuario;
         private string Contraseña; // Debería almacenarse como hash(pero no lo vamos a hacer no mms que flojera)
         private string Correo;
         public int PuntosExperiencia;
-        List<Logro> LogrosObtenidos;
-        List<LibroEstado> LibrosEstados;
+        //List<Logro> LogrosObtenidos;
+        //List<LibroEstado> LibrosEstados;
 
         // Constructor para inicializar un nuevo usuario
-        public Usuario(int id, string nombres, string apellidos, string nombreUsuario, string contraseña, string correo, int puntosExperiencia, List<Logro> logrosObtenidos, List<LibroEstado> librosEstados)
+        public Usuario(string nombres, string apellidos, DateTime Fecha_Nacimiento, string nombreUsuario, string contraseña, string correo) //int puntosExperiencia, List<Logro> logrosObtenidos, List<LibroEstado> librosEstado)
         {
-            Id = id;
-            Nombres = nombres;
-            Apellidos = apellidos;
-            NombreUsuario = nombreUsuario;
-            Contraseña = contraseña;
-            Correo = correo;
-            PuntosExperiencia = puntosExperiencia;
-            LogrosObtenidos = logrosObtenidos;
-            LibrosEstados = librosEstados;
-            BaseDeDatos.BaseDatosUsuario.Add(this);
+            int secuenciaID = Base.BaseDeDatos.BaseDatosUsuario.Count() + 1;
 
+            this.Id = secuenciaID;
+            this.Nombres = nombres;
+            this.Apellidos = apellidos;
+            this.Fecha_Nacimiento = Fecha_Nacimiento;
+            this.edad = DateTime.Now.Year - Fecha_Nacimiento.Year;
+            this.NombreUsuario = nombreUsuario;
+            this.Contraseña = contraseña;
+            this.Correo = correo;
+            //this.PuntosExperiencia = puntosExperiencia; (agregar esto al constructor)
+            //this.LogrosObtenidos = List<Logro> logrosObtenidos;
+            //this.LibrosEstados = librosEstado;
+
+            BaseDeDatos.BaseDatosUsuario.Add(this);
         }
 
+        public string BuscarUsuario() // Función para devolver datos privados, devuelve el nombre de usuario
+        {
+            return this.NombreUsuario;
+        }
 
-
-
-
-
-
-
-
-
-
-
+        public string BuscarContraseña() // Función para devolver datos privados, devuelve la contraseña (esto solo aplica para hacer un verificador de contraseña, como ''Contraseña incorrecta''
+        {
+            return this.Contraseña;
+        }
 
     }
 }

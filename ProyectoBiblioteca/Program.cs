@@ -32,8 +32,8 @@ namespace ProyectoBiblioteca
                 Console.WriteLine("░░░░░░░░░░░░░░░╔════════════════════════════════════════════╗░░░░░░░░░░░░░░");
                 Console.WriteLine("░░░░░░░░░░░░░░░║        MENU        DE      OPCIONES        ║░░░░░░░░░░░░░░");
                 Console.WriteLine("░░░░░░░░░░░░░░░╠════════════════════════════════════════════╣░░░░░░░░░░░░░░");
-                Console.WriteLine("░░░░░░░░░░░░░░░║            1. Iniciar Sesión               ║░░░░░░░░░░░░░░");
-                Console.WriteLine("░░░░░░░░░░░░░░░║            2. Registrarse                  ║░░░░░░░░░░░░░░");
+                Console.WriteLine("░░░░░░░░░░░░░░░║            1. Registrarse                  ║░░░░░░░░░░░░░░");
+                Console.WriteLine("░░░░░░░░░░░░░░░║            2. Iniciar Sesión               ║░░░░░░░░░░░░░░");
                 Console.WriteLine("░░░░░░░░░░░░░░░║            3. salir                        ║░░░░░░░░░░░░░░");
                 Console.WriteLine("░░░░░░░░░░░░░░░╠════════════════════════════════════════════╣░░░░░░░░░░░░░░");
                 Console.WriteLine("░░░░░░░░░░░░░░░║            Ingrese una Opcion:             ║░░░░░░░░░░░░░░");
@@ -45,15 +45,19 @@ namespace ProyectoBiblioteca
                 switch (opcion)
                 {
                     case "1":
-                        iniciarSesion();
+                        crearCuenta();
                         break;
                     case "2":
-                        crearCuenta();
+                        iniciarSesion();
                         break;
                     case "3":
                         Console.WriteLine("Saliendo del sistema...");
-                        
                         return;
+                    default:
+                        Console.WriteLine("Opción no válida, intentar de nuevo.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                 }
             }
         }
@@ -61,29 +65,42 @@ namespace ProyectoBiblioteca
         private static void crearCuenta()
         {
             // Aquí se implementa la lógica para crear una cuenta de usuario
-           Console.Clear();
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("**************INGRESE UN NUEVO USUARIO***************");
             Console.WriteLine();
-            
+
             // Solicitar al usuario que ingrese sus datos
+            Console.Write("Ingrese sus nombre: "); // para nombres
+            string nombres = Console.ReadLine();
             Console.WriteLine();
-            Console.Write("Ingrese su nombre completo: ");
-            string nombre = Console.ReadLine();
+
+            Console.Write("Ingrese sus apellidos: ");
+            string apellidos = Console.ReadLine(); // para apellidos
             Console.WriteLine();
-            Console.Write("Ingrese su correo:  ");
-            string correo = Console.ReadLine();
+
+            Console.Write("Ingrese su fecha de nacimiento: ");
+            DateTime Fecha_Nacimiento = Convert.ToDateTime(Console.ReadLine()); // para fecha de nacimiento
             Console.WriteLine();
+
             Console.Write("Ingrese su nombre de usuario: ");
-            string nombreUsuario = Console.ReadLine();
+            string nombreUsuario = Console.ReadLine(); // para nombre de usuario
             Console.WriteLine();
-            Console.Write("Ingrese su contraseña:   ");
-            string contraseña = Console.ReadLine();
+
+            Console.Write("Ingrese su correo electrónico: ");
+            string correo = Console.ReadLine(); // para correo
             Console.WriteLine();
+
+            Console.Write("Ingrese su contraseña: ");
+            string contraseña = Console.ReadLine(); // para contraseña
+            Console.WriteLine();
+
             Console.Write("Cuenta Creada con éxito! Presione Enter para continuar...");
-  
-            Usuario ObjUsuario = new Usuario(0, nombre, "", nombreUsuario, contraseña, correo, 0, new List<Logro>(), new List<LibroEstado>());
+
+
+            Usuario ObjUsuario = new Usuario(nombres, apellidos, Fecha_Nacimiento, nombreUsuario, correo, contraseña);
             Console.ReadLine();
+            Console.Clear();
 
         }
         // Este método es para iniciar sesión con un usuario ya existente
@@ -91,49 +108,49 @@ namespace ProyectoBiblioteca
         {
             Console.Clear();
 
-            Console.Write("Ingrese su correo o nombre de usuario: ");
-            string usuario = Console.ReadLine();
-            Console.Clear();    
+            Console.Write("Ingrese su nombre de usuario: "); // aquí pedimos ingresar las credenciales como nombre de usuario o correo electrónico
+            string credencial = Console.ReadLine();
 
-            Console.WriteLine("Ingrese su contraseña: ");
-            string contraseña = Console.ReadLine();
-            Console.ReadLine();
-            Console.Clear();
-            while (true)
+            Usuario objnombreUsuario = Base.BaseDeDatos.BuscarNombreUsuario(credencial); // Esto valida la existencia del nombre de usuario en la base de datos de Usuarios
+            if (objnombreUsuario == null) // esto es la condicional, si el usuario no existe en la base de datos Usuario, mostrará el mensaje de credencial no registrada, caso contrario, pedirá la clave.
             {
-                // Aquí se implementa la lógica para verificar las credenciales del usuario
-                // Por simplicidad, asumimos que las credenciales son correctas si el usuario y la contraseña no están vacíos
-                if (!string.IsNullOrEmpty(usuario) && !string.IsNullOrEmpty(contraseña))
-                {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("¡Inicio de sesión exitoso!");
-                    Console.WriteLine("Bienvenido, " + usuario + "!");
-                    Console.ReadLine();
-                    Console.WriteLine("Ingrese su libro a buscar por (codigo, nombre, autor o año) : ");
-                    String busqueda = Console.ReadLine();
-                    Libro objLibroConsulta = Base.BaseDeDatos.GetLibroPorCodigo(busqueda);
-                    if (objLibroConsulta == null)
-                    {
-                        Console.WriteLine("No se encontró un libro con la busqueda proporcionada.");
+                Console.WriteLine("Usuario no registrado.");
+                Console.ReadLine();
+                Console.Clear();
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Usuario encontrado: " + credencial);
+                Console.Write("Ingrese su contraseña: ");
+                string claveiniciosesion = Console.ReadLine();
 
-                    }
-                    else
-                    {
-                        Console.WriteLine("Libro encontrado:");
-                        objLibroConsulta.Imprimir();
-                    }
-                    Console.ReadLine();
-                    break;
+                Usuario objclaveUsuario = Base.BaseDeDatos.BuscarContraseñaUsuario(claveiniciosesion); // esto validará que la clave sea igual a la registrada junto con el usuario
+                if (objclaveUsuario == null)
+                {
+                    Console.WriteLine("Contraseña incorrecta, serás redirigido al menú.");
+                    Console.Clear();
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Credenciales incorrectas. Intente nuevamente.");
+                    Console.WriteLine("!Sesión iniciada exitosamente!");
+                    Console.Write("Presiona una tecla para continuar...");
                     Console.ReadLine();
-                    return;
+                    Console.Clear();
+                    SesionIniciadaMenu();
                 }
             }
 
+            //nota adicional para actualizar xd
+
+
+
+
+        }
+
+        private static void SesionIniciadaMenu()
+        {
+            Console.WriteLine("Bienvenido");
         }
     }
 }
