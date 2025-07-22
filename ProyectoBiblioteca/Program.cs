@@ -1,4 +1,5 @@
-﻿using ProyectoBiblioteca.Clases;
+﻿using ProyectoBiblioteca.Base;
+using ProyectoBiblioteca.Clases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,12 @@ namespace ProyectoBiblioteca
     {
         static void Main(string[] args)
         {
+            BaseDeDatos.CargarDatos();
+            MenuPrincipal(); // esto llama la función de menu principal del programa
+        }
 
-            // Esto es el menú principal del programa
+        public static void MenuPrincipal() // Esto es el menú principal del programa
+        {
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -46,6 +51,7 @@ namespace ProyectoBiblioteca
                 {
                     case "1":
                         crearCuenta();
+                        BaseDeDatos.GuardarDatos();
                         break;
                     case "2":
                         iniciarSesion();

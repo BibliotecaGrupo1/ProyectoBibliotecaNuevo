@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoBiblioteca.Base
 {
-    internal class BaseDeDatos
+    public static class BaseDeDatos
     {
         public static List<Usuario> BaseDatosUsuario = new List<Usuario>(); // Base de datos del Usuario
         public static List<Libro> BaseDatosLibros = new List<Libro>();
@@ -23,8 +23,19 @@ namespace ProyectoBiblioteca.Base
         public static void GuardarDatos()
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream fs = new FileStream(NombreBaseDatosUsuario, FileMode.Create);
-            bf.Serialize(fs, NombreBaseDatosUsuario);
+            FileStream ArchivoNuevo = new FileStream(NombreBaseDatosUsuario, FileMode.Create);
+            bf.Serialize(ArchivoNuevo, BaseDatosUsuario);
+        }
+
+        public static void CargarDatos()
+        {
+            if (File.Exists(NombreBaseDatosUsuario))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream ArchivoExistente = new FileStream(NombreBaseDatosUsuario, FileMode.Open);
+                BaseDatosUsuario = (List<Usuario>)bf.Deserialize(ArchivoExistente);
+                ArchivoExistente.Close();
+            }
         }
 
         public static Usuario BuscarNombreUsuario(string usuario) // Esto llama la función que devuelve datos privador, para confirmar que el usuario se encuentre registrado
