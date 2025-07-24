@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProyectoBiblioteca.Base;
+using ProyectoBiblioteca.Clases;
 
 namespace ProyectoBiblioteca.Clases
 {
@@ -14,6 +15,7 @@ namespace ProyectoBiblioteca.Clases
         private int Id;
         private string Nombres;
         private string Apellidos;
+        private string NombreCompleto;
         private DateTime Fecha_Nacimiento;
         private int edad;
         private string NombreUsuario;
@@ -31,6 +33,7 @@ namespace ProyectoBiblioteca.Clases
             this.Id = secuenciaID;
             this.Nombres = nombres;
             this.Apellidos = apellidos;
+            this.NombreCompleto = nombres + " " + apellidos;
             this.Fecha_Nacimiento = Fecha_Nacimiento;
             this.edad = DateTime.Now.Year - Fecha_Nacimiento.Year;
             this.NombreUsuario = nombreUsuario;
@@ -48,10 +51,23 @@ namespace ProyectoBiblioteca.Clases
             return this.NombreUsuario;
         }
 
+        public string BuscarCorreo() // Función para devolver datos privados, devuelve el correo electrónico
+        {
+            return this.Correo;
+        }
+
         public string BuscarContraseña() // Función para devolver datos privados, devuelve la contraseña (esto solo aplica para hacer un verificador de contraseña, como ''Contraseña incorrecta''
         {
             return this.Contraseña;
         }
 
+        public void ImprimirUsuario() // esto devuelve la información del usuario consultado
+        {
+            Console.WriteLine("===================================================");
+            Console.WriteLine("DATOS PERSONALES DEL USUARIO:");
+            Console.WriteLine("ID: " + this.Id);
+            Console.WriteLine("Nombre Completo: " + this.NombreCompleto);
+            Console.WriteLine("Edad: " + this.edad);
+        }
     }
 }

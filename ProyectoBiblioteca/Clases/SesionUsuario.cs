@@ -3,18 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProyectoBiblioteca.Base;
+using ProyectoBiblioteca.Clases;
 
 namespace ProyectoBiblioteca.Clases
 {
-    // Esta clase representa una sesión de usuario en la biblioteca
-    public class SesionUsuario
+    [Serializable]
+    public class SesionUsuario // Esta clase representa una sesión de usuario en la biblioteca
     {
-        //(para manejo de sesiones)
         public int Id;
-        public int UsuarioId;
-        public Usuario Usuario;
-        public string Token;
-        public DateTime FechaInicio;
-        public DateTime? FechaFin;
+        private string NombreUsuario;
+        public string Correo;
+        public string UsuarioID;
+
+        public SesionUsuario(string nombreUsuario, string correo)
+        {
+            int secuenciaID = Base.BaseDeDatos.BaseDatosSesiones.Count() + 1;
+            this.Id = secuenciaID;
+            this.NombreUsuario = nombreUsuario;
+            this.Correo = correo;
+            //this.UsuarioID = usuarioID;
+
+            BaseDeDatos.BaseDatosSesiones.Add(this);
+        }
+
+        public void ImprimirSesionUsuario() // esto devuelve la información de la sesión de un usuario consultado
+        {
+            Console.WriteLine("...................................................");
+            Console.WriteLine("DATOS DEL PERFIL DEL USUARIO: ");
+            Console.WriteLine("ID: " + this.Id);
+            Console.WriteLine("Nombre de Usuario: " + this.NombreUsuario);
+            Console.WriteLine("Correo electrónico: " + this.Correo);
+        }
     }
 }
