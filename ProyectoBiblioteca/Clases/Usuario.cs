@@ -19,14 +19,14 @@ namespace ProyectoBiblioteca.Clases
         private DateTime Fecha_Nacimiento;
         private int edad;
         private string NombreUsuario;
-        private string Contraseña; // Debería almacenarse como hash(pero no lo vamos a hacer no mms que flojera)
         private string Correo;
-        public int PuntosExperiencia;
+        public string Contraseña; // Debería almacenarse como hash(pero no lo vamos a hacer no mms que flojera)
+        //public int PuntosExperiencia;
         //List<Logro> LogrosObtenidos;
         //List<LibroEstado> LibrosEstados;
 
         // Constructor para inicializar un nuevo usuario
-        public Usuario(string nombres, string apellidos, DateTime Fecha_Nacimiento, string nombreUsuario, string contraseña, string correo) //int puntosExperiencia, List<Logro> logrosObtenidos, List<LibroEstado> librosEstado)
+        public Usuario(string nombres, string apellidos, DateTime Fecha_Nacimiento, string nombreUsuario, string correo, string contraseña) //int puntosExperiencia, List<Logro> logrosObtenidos, List<LibroEstado> librosEstado)
         {
             int secuenciaID = Base.BaseDeDatos.BaseDatosUsuario.Count() + 1;
 
@@ -37,8 +37,9 @@ namespace ProyectoBiblioteca.Clases
             this.Fecha_Nacimiento = Fecha_Nacimiento;
             this.edad = DateTime.Now.Year - Fecha_Nacimiento.Year;
             this.NombreUsuario = nombreUsuario;
-            this.Contraseña = contraseña;
             this.Correo = correo;
+            this.Contraseña = contraseña;
+            
             //this.PuntosExperiencia = puntosExperiencia; (agregar esto al constructor)
             //this.LogrosObtenidos = List<Logro> logrosObtenidos;
             //this.LibrosEstados = librosEstado;
@@ -56,18 +57,14 @@ namespace ProyectoBiblioteca.Clases
             return this.Correo;
         }
 
-        public string BuscarContraseña() // Función para devolver datos privados, devuelve la contraseña (esto solo aplica para hacer un verificador de contraseña, como ''Contraseña incorrecta''
-        {
-            return this.Contraseña;
-        }
 
         public void ImprimirUsuario() // esto devuelve la información del usuario consultado
         {
-            Console.WriteLine("===================================================");
-            Console.WriteLine("DATOS PERSONALES DEL USUARIO:");
-            Console.WriteLine("ID: " + this.Id);
-            Console.WriteLine("Nombre Completo: " + this.NombreCompleto);
-            Console.WriteLine("Edad: " + this.edad);
+            Console.WriteLine("==========================================");
+            Console.WriteLine(" DATOS PERSONALES DEL USUARIO:");
+            Console.WriteLine(" ID: " + this.Id); //
+            Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);//
+            Console.WriteLine(" Edad: " + this.edad); //
         }
     }
 }

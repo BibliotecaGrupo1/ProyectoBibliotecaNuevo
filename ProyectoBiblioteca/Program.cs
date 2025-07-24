@@ -62,9 +62,6 @@ namespace ProyectoBiblioteca
                     case "3":
                         Console.WriteLine("Saliendo del sistema...");
                         return;
-                    case "4":
-                        SesionIniciada();
-                        break;
                     default:
                         Console.WriteLine("Opción no válida, intentar de nuevo.");
                         Console.ReadLine();
@@ -194,10 +191,10 @@ namespace ProyectoBiblioteca
                 Console.Clear();
                 Console.WriteLine("Usuario encontrado: " + objnombreUsuario.BuscarUsuario());
                 Console.Write("Ingrese su contraseña: ");
-                string contraseña = Console.ReadLine();
+                string contraseña = ContraseñaOculta();
 
 
-                if (objnombreUsuario.BuscarContraseña() != contraseña)
+                if (contraseña != objnombreUsuario.Contraseña)
                 {
                     Console.WriteLine("Contraseña incorrecta, serás redirigido al menú.");
                     Console.ReadLine();
@@ -210,19 +207,25 @@ namespace ProyectoBiblioteca
                     Console.Write("Presiona una tecla para continuar...");
                     Console.ReadLine();
                     Console.Clear();
+
+                    while (true)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("==========================================");
+                        Console.WriteLine($"\t  Bienvenido {objnombreUsuario.BuscarUsuario()}");
+                        objnombreUsuario.ImprimirUsuario();
+                        Console.ReadLine();
+
+                        string opcion = Console.ReadLine();
+
+                        switch (opcion)
+                        {
+                            case "1":
+                                break;
+                        }
+                    }
                 }
             }
-        }
-
-        public static void SesionIniciada()
-        {
-            Console.Clear();
-            Console.WriteLine("╔════════════════════════════════════════════╗");
-            Console.WriteLine("║                 Bienvenido                 ║");
-            Console.WriteLine("╚════════════════════════════════════════════╝");
-            Base.BaseDeDatos.ImprimirDatosDeUsuario();
-            Base.BaseDeDatos.ImprimirDatosSesionUsuario();
-            Console.ReadLine();
         }
     }
 }

@@ -69,24 +69,6 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
-        public static Usuario BuscarContraseñaUsuario(string clave) // Esto llama la función que devuelve datos privador, para confirmar que el usuario se encuentre registrado
-        {
-            foreach (Usuario key in BaseDatosUsuario)
-            {
-                if (key.BuscarUsuario() == clave)
-                {
-                    return key;
-                }
-            }
-            return null;
-        }
-
-
-        /*public static void Usuario BuscarContraseñaUsuario() // Esto llama la función que devuelve datos privados, para confirmar que la contraseña sea igual a la del registro
-        {
-            BuscarContraseña();
-        }*/
-
         public static Libro GetLibroPorCodigo(string codigo) // Pendiente de revisión
         {
             foreach (var item in BaseDatosLibros)
@@ -99,7 +81,7 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
-        public static void ImprimirDatosDeUsuario()
+        /*public static void ImprimirDatosDeUsuario()
         {
             foreach (Usuario DatoUser in BaseDatosUsuario)
             {
@@ -113,6 +95,6 @@ namespace ProyectoBiblioteca.Base
             {
                 DatoSesionUser.ImprimirSesionUsuario();
             }
-        }
+        }*/
     }
 }
