@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProyectoBiblioteca.Base;
-using ProyectoBiblioteca.Clases;
 
 namespace ProyectoBiblioteca.Clases
 {
     [Serializable]
-    // Esta clase representa un usuario en la biblioteca
-    public class Usuario
+    public class Usuario // Esta clase representa un usuario en la biblioteca
     {
         private int Id;
         private string Nombres;
@@ -52,19 +50,13 @@ namespace ProyectoBiblioteca.Clases
             return this.NombreUsuario;
         }
 
-        public string BuscarCorreo() // Función para devolver datos privados, devuelve el correo electrónico
-        {
-            return this.Correo;
-        }
-
-
         public void ImprimirUsuario() // esto devuelve la información del usuario consultado
         {
             Console.WriteLine("==========================================");
             Console.WriteLine(" DATOS PERSONALES DEL USUARIO:");
-            Console.WriteLine(" ID: " + this.Id); //
-            Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);//
-            Console.WriteLine(" Edad: " + this.edad); //
+            Console.WriteLine(" ID: " + this.Id);
+            Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);
+            Console.WriteLine(" Edad: " + this.edad);
         }
     }
 }

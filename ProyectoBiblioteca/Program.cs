@@ -214,6 +214,7 @@ namespace ProyectoBiblioteca
                         Console.WriteLine("==========================================");
                         Console.WriteLine($"\t  Bienvenido {objnombreUsuario.BuscarUsuario()}");
                         objnombreUsuario.ImprimirUsuario();
+                        
                         Console.ReadLine();
 
                         string opcion = Console.ReadLine();
