@@ -179,42 +179,39 @@ namespace ProyectoBiblioteca
             Console.Clear();
             Console.Write("Ingrese su nombre de usuario: "); // aquí pedimos ingresar las credenciales como nombre de usuario o correo electrónico
 
-            do
+            string credencial = Console.ReadLine();
+
+            Usuario objnombreUsuario = Base.BaseDeDatos.BuscarNombreUsuario(credencial); // Esto valida la existencia del nombre de usuario en la base de datos de Usuarios
+
+            if (objnombreUsuario == null)  // esto es la condicional, si el usuario no existe en la base de datos Usuario, mostrará el mensaje de credencial no registrada, caso contrario, pedirá la clave.
             {
-                string credencial = Console.ReadLine();
+                Console.WriteLine("Usuario no registrado.");
+                Console.ReadLine();
+                Console.Clear();
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Usuario encontrado: " + objnombreUsuario.BuscarUsuario());
+                Console.Write("Ingrese su contraseña: ");
+                string contraseña = Console.ReadLine();
 
-                Usuario objnombreUsuario = Base.BaseDeDatos.BuscarNombreUsuario(credencial); // Esto valida la existencia del nombre de usuario en la base de datos de Usuarios
 
-                if (objnombreUsuario == null)  // esto es la condicional, si el usuario no existe en la base de datos Usuario, mostrará el mensaje de credencial no registrada, caso contrario, pedirá la clave.
+                if (objnombreUsuario.BuscarContraseña() != contraseña)
                 {
-                    Console.WriteLine("Usuario no registrado.");
+                    Console.WriteLine("Contraseña incorrecta, serás redirigido al menú.");
                     Console.ReadLine();
                     Console.Clear();
+                    return;
                 }
                 else
                 {
+                    Console.WriteLine("!Sesión iniciada exitosamente!");
+                    Console.Write("Presiona una tecla para continuar...");
+                    Console.ReadLine();
                     Console.Clear();
-                    Console.WriteLine("Usuario encontrado: " + objnombreUsuario.BuscarUsuario());
-                    Console.Write("Ingrese su contraseña: ");
-                    string contraseña = Console.ReadLine();
-
-                    if (objnombreUsuario.BuscarContraseña() != contraseña)
-                    {
-                        Console.WriteLine("Contraseña incorrecta, serás redirigido al menú.");
-                        Console.ReadLine();
-                        Console.Clear();
-                        return;
-                    }
-                    else
-                    {
-                        Console.WriteLine("!Sesión iniciada exitosamente!");
-                        Console.Write("Presiona una tecla para continuar...");
-                        Console.ReadLine();
-                        Console.Clear();
-                    }
                 }
             }
-            
         }
 
         public static void SesionIniciada()
