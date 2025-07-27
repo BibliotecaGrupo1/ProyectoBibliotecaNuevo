@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using ProyectoBiblioteca.Base;
@@ -10,15 +11,17 @@ namespace ProyectoBiblioteca.Clases
     [Serializable]
     public class Usuario // Esta clase representa un usuario en la biblioteca
     {
-        private int Id;
-        private string Nombres;
-        private string Apellidos;
-        private string NombreCompleto;
-        private DateTime Fecha_Nacimiento;
-        private int edad;
-        private string NombreUsuario;
-        private string Correo;
-        public string Contraseña; // Debería almacenarse como hash(pero no lo vamos a hacer no mms que flojera)
+        public int Id;
+        public string Nombres;
+        public string Apellidos;
+        public string NombreCompleto;
+        public DateTime Fecha_Nacimiento;
+        public int edad;
+        public string NombreUsuario;
+        public string Correo;
+        private string Contraseña;
+        public List<Libro> LibrosFavoritos;
+
         //public int PuntosExperiencia;
         //List<Logro> LogrosObtenidos;
         //List<LibroEstado> LibrosEstados;
@@ -37,6 +40,8 @@ namespace ProyectoBiblioteca.Clases
             this.NombreUsuario = nombreUsuario;
             this.Correo = correo;
             this.Contraseña = contraseña;
+            this.LibrosFavoritos = new List<Libro>();
+
             
             //this.PuntosExperiencia = puntosExperiencia; (agregar esto al constructor)
             //this.LogrosObtenidos = List<Logro> logrosObtenidos;
@@ -50,13 +55,24 @@ namespace ProyectoBiblioteca.Clases
             return this.NombreUsuario;
         }
 
+        public bool ValidarContraseñaUsuario(string claveUser)
+        {
+            return this.Contraseña == claveUser;
+        }
+
+
         public void ImprimirUsuario() // esto devuelve la información del usuario consultado
         {
-            Console.WriteLine("==========================================");
+            Console.WriteLine("══════════════════════════════════════════════");
             Console.WriteLine(" DATOS PERSONALES DEL USUARIO:");
             Console.WriteLine(" ID: " + this.Id);
             Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);
             Console.WriteLine(" Edad: " + this.edad);
+        }
+
+        public void AñadirFAvorito(Libro aggLibroFav) // Esta funcion agrega los items de la lista Libros a una nuevalista dentro de la clase Usuario como favoritos para un determinado Usuario
+        {
+            LibrosFavoritos.Add(aggLibroFav);
         }
     }
 }

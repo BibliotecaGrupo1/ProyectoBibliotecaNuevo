@@ -14,28 +14,26 @@ namespace ProyectoBiblioteca.Base
     {
         public static List<Usuario> BaseDatosUsuario = new List<Usuario>(); // Base de datos del Usuario
         public static List<SesionUsuario> BaseDatosSesiones = new List<SesionUsuario>(); // Base de datos de las sesiones de un Usuario
-        public static List<Libro> BaseDatosLibros = new List<Libro>();
+        public static List<Libro> BaseDatosLibros = new List<Libro>(); // Base de datos de los Libros en la biblioteca
         public static List<LibroEstado> BaseDatosLibrosEstados = new List<LibroEstado>();
         public static List<UsuarioLogro> BaseDatosUsuarioLogros = new List<UsuarioLogro>();
         public static List<Logro> BaseDatosLogros = new List<Logro>();
+        public static List<Administradores> BaseDatosAdministradores = new List<Administradores>();
 
         private static string NombreBaseDatosUsuario = "DatosUsuario.dat"; // archivo de la base de datos de Usuario.
         private static string NombreBaseDatosSesionUsuario = "DatosSesionUsuario.dat"; // archivo de la base de datos de sesiones de Usuario.
+        private static string NombreBaseDatosLibros = "DatosLibros.dat";
+        private static string NombreBaseDatosAdministradores = "DatosAdministradores.dat"; // BDS Administradores
 
+
+
+        /////////////////////////       BASE DE DATOS USUARIO       /////////////////////////
         public static void GuardarDatosUsuario() // Guarda los datos en la BSD Usuario
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream ArchivoUsuario = new FileStream(NombreBaseDatosUsuario, FileMode.Create);
             bf.Serialize(ArchivoUsuario, BaseDatosUsuario);
         }
-
-        public static void GuardarDatosSesionUsuario() // Guarda los datos en la BSD SesionUsuario
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream ArchivoSesionUsuario = new FileStream(NombreBaseDatosSesionUsuario, FileMode.Create);
-            bf.Serialize(ArchivoSesionUsuario, BaseDatosSesiones);
-        }
-
         public static void CargarDatosUsuario() // Carga los datos de la BSD Usuario
         {
             if (File.Exists(NombreBaseDatosUsuario))
@@ -47,6 +45,15 @@ namespace ProyectoBiblioteca.Base
             }
         }
 
+
+
+        /////////////////////////       BASE DE DATOS PERFIL USUARIO       /////////////////////////
+        public static void GuardarDatosSesionUsuario() // Guarda los datos en la BSD SesionUsuario
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream ArchivoSesionUsuario = new FileStream(NombreBaseDatosSesionUsuario, FileMode.Create);
+            bf.Serialize(ArchivoSesionUsuario, BaseDatosSesiones);
+        }
         public static void CargarDatosSesionUsuario() // Carga los datos de la BSD Sesiones
         {
             if (File.Exists(NombreBaseDatosSesionUsuario))
@@ -58,6 +65,50 @@ namespace ProyectoBiblioteca.Base
             }
         }
 
+
+
+        /////////////////////////       BASE DE DATOS LIBROS       /////////////////////////
+        public static void GuardarDatosLibros() // Guarda los datos en la BSD Libros
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream ArchivoLibros = new FileStream(NombreBaseDatosLibros, FileMode.Create);
+            bf.Serialize(ArchivoLibros, BaseDatosLibros);
+        }
+        public static void CargarDatosLibros() // Carga los datos de la BSD Sesiones
+        {
+            if (File.Exists(NombreBaseDatosLibros))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream ArchivoLibro = new FileStream(NombreBaseDatosLibros, FileMode.Open);
+                BaseDatosLibros = (List<Libro>)bf.Deserialize(ArchivoLibro);
+                ArchivoLibro.Close();
+            }
+        }
+
+
+
+        /////////////////////////       BASE DE DATOS ADMINISTRADORES       /////////////////////////
+        public static void GuardarDatosAdministradores() // Guarda los datos en la BSD Administradores
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream ArchivoAdministradores = new FileStream(NombreBaseDatosAdministradores, FileMode.Create);
+            bf.Serialize(ArchivoAdministradores, BaseDatosAdministradores);
+        }
+        public static void CargarDatosAdministradores() // Carga los datos de la BSD Administradores
+        {
+            if (File.Exists(NombreBaseDatosAdministradores))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream ArchivoAdministrator = new FileStream(NombreBaseDatosAdministradores, FileMode.Open);
+                BaseDatosAdministradores = (List<Administradores>)bf.Deserialize(ArchivoAdministrator);
+                ArchivoAdministrator.Close();
+            }
+        }
+
+
+
+
+
         public static Usuario BuscarNombreUsuario(string usuario) // Esto llama la función que devuelve datos privador, para confirmar que el usuario se encuentre registrado
         {
             foreach (Usuario user in BaseDatosUsuario)
@@ -65,6 +116,18 @@ namespace ProyectoBiblioteca.Base
                 if (user.BuscarUsuario() == usuario)
                 {
                     return user;
+                }
+            }
+            return null;
+        }
+
+        public static Administradores ObtenerAdminUsuario(string UA) // Esto llama la función que devuelve datos privador, para confirmar que el usuario se encuentre registrado
+        {
+            foreach (Administradores userADMIN in BaseDatosAdministradores)
+            {
+                if (userADMIN.BuscarUserAdmin() == UA)
+                {
+                    return userADMIN;
                 }
             }
             return null;
@@ -82,11 +145,11 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
-        /*public static void ImprimirDatosDeUsuario()
+        public static void ImprimirTodosLibros()
         {
-            foreach (Usuario DatoUser in BaseDatosUsuario)
+            foreach (Libro Libros in BaseDatosLibros)
             {
-                DatoUser.ImprimirUsuario();
+                Libros.MostrarLibros();
             }
         }
 
@@ -96,6 +159,22 @@ namespace ProyectoBiblioteca.Base
             {
                 DatoSesionUser.ImprimirSesionUsuario();
             }
-        }*/
+        }
+
+        public static void ListaImprimirAdmins()
+        {
+            foreach (Administradores administradores in BaseDatosAdministradores)
+            {
+                administradores.ImprimirAdmin();
+            }
+        }
+
+        public static void ListaImprimirUsuario()
+        {
+            foreach (Usuario usuario in BaseDatosUsuario)
+            {
+                usuario.ImprimirUsuario();
+            }
+        }
     }
 }
