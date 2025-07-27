@@ -63,8 +63,6 @@ namespace ProyectoBiblioteca.Clases
 
         public void ImprimirUsuario() // esto devuelve la información del usuario consultado
         {
-            Console.WriteLine("══════════════════════════════════════════════");
-            Console.WriteLine(" DATOS PERSONALES DEL USUARIO:");
             Console.WriteLine(" ID: " + this.Id);
             Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);
             Console.WriteLine(" Edad: " + this.edad);

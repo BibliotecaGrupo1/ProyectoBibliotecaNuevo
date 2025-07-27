@@ -42,10 +42,15 @@ namespace ProyectoBiblioteca.Clases
             Console.WriteLine(".......................................................");
             Console.WriteLine();
         }
-        // Método para obtener el código del libro (ISBN)
+        // Método para obtener el código del libro (ISBN) // pendiente de revisión
         public string getCodigo()
         {
             return ISBN;
+        }
+
+        public int BuscarLibroID()
+        {
+            return this.Id;
         }
     }
 }

@@ -133,11 +133,11 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
-        public static Libro GetLibroPorCodigo(string codigo) // Pendiente de revisión
+        public static Libro BuscarLibroPorCodigoID(int id) // Pendiente de revisión
         {
-            foreach (var item in BaseDatosLibros)
+            foreach (Libro item in BaseDatosLibros)
             {
-                if (item.getCodigo() == codigo)
+                if (item.BuscarLibroID() == id)
                 {
                     return item;
                 }

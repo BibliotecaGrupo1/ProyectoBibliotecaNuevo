@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -150,8 +151,8 @@ namespace ProyectoBiblioteca
                     contraseña += key.KeyChar; // la funcion contraseña = contraseña + caracter, pero simplificada
                     Console.Write("*");
                 }
-                else if (key.Key == ConsoleKey.Backspace && contraseña.Length > 0) // esa condificonal aplica que si la tecla presiona es backspace
-                {                                                                  // no sumará las teclas como "*" dentro de la clave
+                else if (key.Key == ConsoleKey.Backspace && contraseña.Length > 0) // esa condificonal aplica que si la tecla presiona es backspace no sumará las teclas como "*" dentro de la clave
+                {
                     contraseña = contraseña.Remove(contraseña.Length - 1);         
                     Console.Write("\b \b");  // el uso del doble "\b" es para borrar correctamente los caracteres dentro del campo de la contraseña, uno coloca el cursor al final de la palabra mientras que el otro elimina correctamente los *, si se usara solo uno, borraría el caracter pero en la pantalla seguiría apareciendo el "*"
                 }
@@ -202,15 +203,16 @@ namespace ProyectoBiblioteca
             else
             {
                 Console.Clear();
-                Console.WriteLine("Usuario encontrado: " + objnombreUsuario.BuscarUsuario());
+                Console.WriteLine("Usuario encontrado: " + objnombreUsuario.BuscarUsuario()); // Una vez que la base de dato haya validado que existe el nombre de usuario escrito, lo colocará en pantalla y pedirá la clave
                 Console.Write("Ingrese su contraseña: ");
                 string contraseña = ContraseñaOculta();
 
 
-                if (objnombreUsuario.ValidarContraseñaUsuario(contraseña))
+                if (objnombreUsuario.ValidarContraseñaUsuario(contraseña)) // Esto llama a la funcion ''ValidarContraseñaUsuario'' para confirmar que la contraseña digitada pertenezca al mismo registro que el nombre de usuario digitado
                 {
+                    Console.WriteLine();
                     Console.WriteLine("!Sesión iniciada exitosamente!");
-                    Console.Write("Presiona una tecla para continuar...");
+                    Console.Write("Presiona ENTER para continuar...");
                     Console.ReadLine();
                     Console.Clear();
 
@@ -221,7 +223,9 @@ namespace ProyectoBiblioteca
                         Console.WriteLine("╔════════════════════════════════════════════╗");
                         Console.WriteLine("║        PLATAFORMA BIBLIOTECA VIRTUAL       ║");
                         Console.WriteLine("╚════════════════════════════════════════════╝");
-                        Console.WriteLine($"\t      Bienvenido {objnombreUsuario.BuscarUsuario()}");
+                        Console.WriteLine($"\t      Bienvenido {objnombreUsuario.BuscarUsuario()}"); // una vez dentro la consola mostrará el nombre de usuario que se usó para el inicio de sesion, mostrando su nombre de usuario y las opciones del menu
+                        Console.WriteLine(" DATOS PERSONALES DEL USUARIO:");
+                        Console.WriteLine("══════════════════════════════════════════════");
                         objnombreUsuario.ImprimirUsuario();
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine("╔════════════════════════════════════════════╗");
@@ -230,16 +234,17 @@ namespace ProyectoBiblioteca
                         Console.WriteLine(" 3. Ver Perfil de Usuario");
                         Console.WriteLine(" 1. Agregar libro a mi lista");
                         Console.WriteLine(" 2. Listar todos mis libros");
-                        Console.WriteLine(" 4. Salir al Menú Principal");
+                        Console.WriteLine(" 4. Cerrar Sesión");
                         Console.WriteLine();
                         Console.Write(" Seleccione una opción: ");
 
                         string opcionUsuario = Console.ReadLine();
                         switch (opcionUsuario)
                         {
-                            case "4":
+                            case "4": // aqui se implemente la misma logica de bucle para permanecer dentro del menu de usuario hasta que la opcion sea cerrar la sesion
                                 Console.Clear();
-                                Console.WriteLine("Volviendo al menu principal...");
+                                Console.WriteLine("Volviendo al Menu Principal.");
+                                Console.WriteLine("Presiona ENTER para continuar...");
                                 Console.ReadLine();
                                 Console.Clear();
                                 return;
@@ -258,20 +263,20 @@ namespace ProyectoBiblioteca
 
         
 
-        private static void RegistrarAdministrador()
+        private static void RegistrarAdministrador() // esta funcion es para registrar un ADMINISTRADOR, obviamente oculta en el menú
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("**************REGISTRO ADMINISTRADOR***************");
-            Console.Write("Ingrese su nombre de usuario de ADMIN: ");
+            Console.WriteLine("**************REGISTRO ADMINISTRADOR***************"); // Sigue el mismo protocolo de registro
+            Console.Write("Ingrese su nombre de usuario de ADMIN: "); // Pide ingresar un nombre de usuario ADMIN
             string AdminUsuario = Console.ReadLine();
             Console.WriteLine();
 
-            Console.Write("Ingrese su fecha de nacimiento (DD/MM/AA): ");
+            Console.Write("Ingrese su fecha de nacimiento (DD/MM/AA): "); // Fecha de nacimiento del ADMIN
             DateTime fechaNacimiento = Convert.ToDateTime(Console.ReadLine());
             Console.WriteLine();
 
-            Console.Write("Ingrese su contraseña: ");
+            Console.Write("Ingrese su contraseña: "); // Contraseña del ADMIN, esta parte no tiene validación de contraseña, pq al ser administradores siempre tenemos acceso al menú de ADMINISTRADORES, es solo el protocolo
             string adminContraseña = ContraseñaOculta();
             Console.WriteLine();
 
@@ -283,14 +288,14 @@ namespace ProyectoBiblioteca
             Console.Clear();
         }
 
-        private static void IniciarSesionAdmin()
+        private static void IniciarSesionAdmin() // la misma lógica que en el inicio de sesion para un usuario comun
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write("Usuario ADMIN: ");
             string AdminUsuario = Console.ReadLine();
 
-            Administradores objAdmin = Base.BaseDeDatos.ObtenerAdminUsuario(AdminUsuario);
+            Administradores objAdmin = Base.BaseDeDatos.ObtenerAdminUsuario(AdminUsuario); // verifica que el nombre de usuario de ADMINISTRADOR exista en la base de datos
 
             if (objAdmin == null)  // esto es la condicional, si el usuario no existe en la base de datos Usuario, mostrará el mensaje de credencial no registrada, caso contrario, pedirá la clave.
             {
@@ -311,15 +316,15 @@ namespace ProyectoBiblioteca
                     {
                         
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red; // Esto modifica el color del menú, para distinguir entre menú principal, menu de usuario y menú de ADMINISTRADOR
                         Console.WriteLine("╔════════════════════════════════════════════╗");
-                        Console.WriteLine("║             Modo Administrador             ║");
+                        Console.WriteLine("║             Modo Administrador             ║");  // MENU DE ADMINISTRADOR
                         Console.WriteLine("╚════════════════════════════════════════════╝");
                         Console.WriteLine($"\t     ADMIN: {objAdmin.BuscarUserAdmin()}");
                         objAdmin.ImprimirAdmin();
                         Console.WriteLine();
                         Console.WriteLine("╔════════════════════════════════════════════╗╔════════════════════════════════════════════╗");
-                        Console.WriteLine("║            MENU OPCIONAL DE LIBROS         ║║           MENU OPCIONAL DE USUARIOS        ║");
+                        Console.WriteLine("║            MENU OPCIONAL DE LIBROS         ║║           MENU OPCIONAL DE USUARIOS        ║"); // Se usó este estilo compacto para mejorar el resultado visual, y no ocupar mucho espacio en la pantalla de impresión
                         Console.WriteLine("╚════════════════════════════════════════════╝╚════════════════════════════════════════════╝");
                         Console.WriteLine(" 1. Agregar Libro.                               5. Listar Usuarios.");
                         Console.WriteLine(" 2. Ver Lista de Libros.                         6. Listar Sesiones de Usuario.");
@@ -334,7 +339,7 @@ namespace ProyectoBiblioteca
 
                         switch (opcionAdmin)
                         {
-                            case "1":
+                            case "1": // el bucle de opciones con operaciones solo disponibles para ADMINISTRADORES
                                 Console.Clear();
                                 AgregarNuevoLibro();
                                 BaseDeDatos.GuardarDatosLibros();
@@ -344,6 +349,9 @@ namespace ProyectoBiblioteca
                                 ListaLibros();
                                 break;
                             case "3":
+                                Console.Clear();
+                                ModificarLibros();
+                                BaseDeDatos.GuardarDatosLibros();
                                 break;
                             case "9":
                                 Console.WriteLine("Saliendo del modo ADMIN...");
@@ -363,27 +371,27 @@ namespace ProyectoBiblioteca
         private static void AgregarNuevoLibro()
         {
             Console.WriteLine("╔════════════════════════════════════════════╗");
-            Console.WriteLine("║      BIENVENIDO AL REGISTRO DE LIBROS      ║");
+            Console.WriteLine("║      BIENVENIDO AL REGISTRO DE LIBROS      ║"); // Este es el proceso de registrar o añadir un nuevo libro a la biblioteca
             Console.WriteLine("╚════════════════════════════════════════════╝");
             Console.WriteLine();
 
-            Console.Write("Ingrese el nombre del libro a registrar: ");
+            Console.Write("Ingrese el nombre del libro a registrar: "); // Nombre del libro
             string titulo = Console.ReadLine();
             Console.WriteLine();
 
-            Console.Write("Ingrese el nombre del autor: ");
+            Console.Write("Ingrese el nombre del autor: "); //Nombre del autor
             string autor = Console.ReadLine();
             Console.WriteLine();
 
-            Console.Write("Ingrese el año de publicación: ");
+            Console.Write("Ingrese el año de publicación: ");   // año de publicación
             string añoPublicacion = Console.ReadLine();
             Console.WriteLine();
 
-            Console.Write("Ingrese el código del libro: ");
+            Console.Write("Ingrese el código del libro: "); // código del libro
             string iSBN = Console.ReadLine();
             Console.WriteLine();
 
-            Console.Write("Ingrese el género literario del libro: ");
+            Console.Write("Ingrese el género literario del libro: "); // género literario al que pertenece el libro
             string genero = Console.ReadLine();
             Console.WriteLine();
 
@@ -396,18 +404,38 @@ namespace ProyectoBiblioteca
         private static void ListaLibros()
         {
             Console.WriteLine("╔════════════════════════════════════════════╗");
-            Console.WriteLine("║      LISTA DE LIBROS EN LA BIBLIOTECA      ║");
+            Console.WriteLine("║      LISTA DE LIBROS EN LA BIBLIOTECA      ║"); // Esto imprime la lista completa de todos los libros en la biblioteca
             Console.WriteLine("╚════════════════════════════════════════════╝");
             Console.WriteLine();
             BaseDeDatos.ImprimirTodosLibros();
             Console.ReadLine();
         }
 
+        private static void ModificarLibros()
+        {
+            Console.WriteLine("╔════════════════════════════════════════════╗");
+            Console.WriteLine("║      LISTA DE LIBROS EN LA BIBLIOTECA      ║"); // Esto imprime los libros y proporciona las opciones correspondientes para modificar el libro en cuestión
+            Console.WriteLine("╚════════════════════════════════════════════╝");
+            Console.WriteLine();
+            BaseDeDatos.ImprimirTodosLibros();
+            Console.Write("Escriba la ID del libro que va a modificar: ");
+            Console.ReadLine();
+            
+            /*string opcionModificar = Convert.ToInt32(Console.ReadLine());  // Aun en proceso :D
+
+            Libro objLibro = Base.BaseDeDatos.BuscarLibroPorCodigoID(opcionModificar);
+            if (opcionModificar == null)
+            {
+
+            }*/
+
+        }
+
         private static void ListaCompleta()
         {
             Console.Clear();
-            BaseDeDatos.ListaImprimirUsuario();
-            BaseDeDatos.ListaImprimirAdmins();
+            BaseDeDatos.ListaImprimirUsuario();  // La creación de este bloque está diseñada especificamente para verificar que cada dato se registre correctamente en su respectica base de datos
+            BaseDeDatos.ListaImprimirAdmins();   // Si algun dato no aparece en la impresion de pantalla es señal de que algo no va bien en el código
             BaseDeDatos.ImprimirTodosLibros();
             Console.ReadLine();
             Console.Clear();
