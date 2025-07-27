@@ -55,7 +55,7 @@ namespace ProyectoBiblioteca.Clases
             return this.NombreUsuario;
         }
 
-        public bool ValidarContraseñaUsuario(string claveUser)
+        public bool ValidarContraseñaUsuario(string claveUser) // esto valida que la contraseña sea igual a la del usuario consultado, sirve para el inicio de sesión
         {
             return this.Contraseña == claveUser;
         }

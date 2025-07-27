@@ -48,7 +48,7 @@ namespace ProyectoBiblioteca.Clases
             return ISBN;
         }
 
-        public int BuscarLibroID()
+        public int BuscarLibroID() // En proceso*
         {
             return this.Id;
         }

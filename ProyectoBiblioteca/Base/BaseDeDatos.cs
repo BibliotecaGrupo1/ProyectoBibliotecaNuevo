@@ -12,18 +12,18 @@ namespace ProyectoBiblioteca.Base
 {
     public static class BaseDeDatos
     {
-        public static List<Usuario> BaseDatosUsuario = new List<Usuario>(); // Base de datos del Usuario
-        public static List<SesionUsuario> BaseDatosSesiones = new List<SesionUsuario>(); // Base de datos de las sesiones de un Usuario
-        public static List<Libro> BaseDatosLibros = new List<Libro>(); // Base de datos de los Libros en la biblioteca
+        public static List<Usuario> BaseDatosUsuario = new List<Usuario>(); // Base de datos del Usuario.
+        public static List<SesionUsuario> BaseDatosSesiones = new List<SesionUsuario>(); // Base de datos de las sesiones de un Usuario.
+        public static List<Libro> BaseDatosLibros = new List<Libro>(); // Base de datos de los Libros en la biblioteca.
         public static List<LibroEstado> BaseDatosLibrosEstados = new List<LibroEstado>();
         public static List<UsuarioLogro> BaseDatosUsuarioLogros = new List<UsuarioLogro>();
         public static List<Logro> BaseDatosLogros = new List<Logro>();
-        public static List<Administradores> BaseDatosAdministradores = new List<Administradores>();
+        public static List<Administradores> BaseDatosAdministradores = new List<Administradores>(); // Base de datos de los ADMINISTRADORES.
 
         private static string NombreBaseDatosUsuario = "DatosUsuario.dat"; // archivo de la base de datos de Usuario.
         private static string NombreBaseDatosSesionUsuario = "DatosSesionUsuario.dat"; // archivo de la base de datos de sesiones de Usuario.
-        private static string NombreBaseDatosLibros = "DatosLibros.dat";
-        private static string NombreBaseDatosAdministradores = "DatosAdministradores.dat"; // BDS Administradores
+        private static string NombreBaseDatosLibros = "DatosLibros.dat";// archivo de la base de datos de los libros.
+        private static string NombreBaseDatosAdministradores = "DatosAdministradores.dat"; // archivo de la base de datos de los ADMINISTRADORES.
 
 
 
@@ -121,7 +121,7 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
-        public static Administradores ObtenerAdminUsuario(string UA) // Esto llama la función que devuelve datos privador, para confirmar que el usuario se encuentre registrado
+        public static Administradores ObtenerAdminUsuario(string UA) // Esto llama la función que devuelve datos privador, para confirmar que el Usuario de ADMINISTRADOR se encuentre registrado
         {
             foreach (Administradores userADMIN in BaseDatosAdministradores)
             {
@@ -145,7 +145,7 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
-        public static void ImprimirTodosLibros()
+        public static void ImprimirTodosLibros() // llama la funcion Imprimir en la clase libros, para imprimir la lista de libros
         {
             foreach (Libro Libros in BaseDatosLibros)
             {
@@ -153,7 +153,7 @@ namespace ProyectoBiblioteca.Base
             }
         }
 
-        public static void ImprimirDatosSesionUsuario()
+        public static void ImprimirDatosSesionUsuario() // llama la funcion Imprimir en la clase SesionUsuario, para imprimir los datos del perfil
         {
             foreach (SesionUsuario DatoSesionUser in BaseDatosSesiones)
             {
@@ -161,7 +161,7 @@ namespace ProyectoBiblioteca.Base
             }
         }
 
-        public static void ListaImprimirAdmins()
+        public static void ListaImprimirAdmins() // llama la funcion imprimir en la clase Administradores, para imprimir los datos de Administradores
         {
             foreach (Administradores administradores in BaseDatosAdministradores)
             {
@@ -169,7 +169,7 @@ namespace ProyectoBiblioteca.Base
             }
         }
 
-        public static void ListaImprimirUsuario()
+        public static void ListaImprimirUsuario() // llama la funcion de imprimir en la clase Usuarios, para imprimir los datos de los Usuarios
         {
             foreach (Usuario usuario in BaseDatosUsuario)
             {
