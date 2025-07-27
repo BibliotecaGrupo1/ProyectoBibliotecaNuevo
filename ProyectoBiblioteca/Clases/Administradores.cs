@@ -29,6 +29,8 @@ namespace ProyectoBiblioteca.Clases
             this.FechaNacimiento = fechaNacimiento;
             this.edad = DateTime.Now.Year - FechaNacimiento.Year;
             this.AdminContraseña = adminContraseña;
+
+            BaseDeDatos.BaseDatosAdministradores.Add(this);
         }
 
         public void ImprimirAdmin()

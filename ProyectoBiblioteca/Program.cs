@@ -340,6 +340,7 @@ namespace ProyectoBiblioteca
                                 BaseDeDatos.GuardarDatosLibros();
                                 break;
                             case "2":
+                                Console.Clear();
                                 ListaLibros();
                                 break;
                             case "3":
@@ -382,8 +383,9 @@ namespace ProyectoBiblioteca
             string iSBN = Console.ReadLine();
             Console.WriteLine();
 
-            Console.WriteLine("Ingrese el género literario del libro: ");
+            Console.Write("Ingrese el género literario del libro: ");
             string genero = Console.ReadLine();
+            Console.WriteLine();
 
             Console.WriteLine("El libro se ha añadido a la biblioteca correctamente.");
             Libro objLibro = new Libro(titulo, autor, añoPublicacion, iSBN, genero);
@@ -393,6 +395,9 @@ namespace ProyectoBiblioteca
 
         private static void ListaLibros()
         {
+            Console.WriteLine("╔════════════════════════════════════════════╗");
+            Console.WriteLine("║      LISTA DE LIBROS EN LA BIBLIOTECA      ║");
+            Console.WriteLine("╚════════════════════════════════════════════╝");
             Console.WriteLine();
             BaseDeDatos.ImprimirTodosLibros();
             Console.ReadLine();

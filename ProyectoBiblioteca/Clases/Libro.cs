@@ -32,13 +32,14 @@ namespace ProyectoBiblioteca.Clases
         }
         public void MostrarLibros() // Esto imprime los datos de los libros
         {
-            Console.WriteLine(".......................................................");
             Console.WriteLine("ID: " + this.Id);
             Console.WriteLine("Título: " + this.Titulo);
             Console.WriteLine("Autor: " + this.Autor);
             Console.WriteLine("Año de Publicación: " + this.AñoPublicacion);
             Console.WriteLine("ISBN: " + this.ISBN);
             Console.WriteLine("Género: " + this.Genero);
+            Console.WriteLine();
+            Console.WriteLine(".......................................................");
             Console.WriteLine();
         }
         // Método para obtener el código del libro (ISBN)
