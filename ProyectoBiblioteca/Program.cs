@@ -248,7 +248,7 @@ namespace ProyectoBiblioteca
                                 Console.WriteLine("╔════════════════════════════════════════════╗");
                                 Console.WriteLine("║            PERFIL DE USUARIO               ║");
                                 Console.WriteLine("╚════════════════════════════════════════════╝");
-                                objnombreUsuario.ImprimirUsuarioParaAdministrador();
+                                objnombreUsuario.ImprimirPerfilUsuario();
                                 Console.WriteLine("Libros del usuario: ");
                                 foreach (var libro in objnombreUsuario.LibrosUsuario)
                                 {

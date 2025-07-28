@@ -64,6 +64,19 @@ namespace ProyectoBiblioteca.Clases
             Console.WriteLine();
         }
 
+        public void ImprimirPerfilUsuario() // esto devuelve la información del usuario consultado, mostrando la lista completa para los administradores
+        {
+            Console.WriteLine(" ID: " + this.Id);
+            Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);
+            Console.WriteLine(" Edad: " + this.edad);
+            Console.WriteLine();
+            Console.WriteLine(" Nombre de Usuario: " + this.NombreUsuario);
+            Console.WriteLine(" Correo: " + this.Correo);
+            Console.WriteLine();
+            Console.WriteLine("..............................................");
+            Console.WriteLine();
+        }
+
         public int ObtenerID() // esto retorna la ID
         {
             return this.Id;
