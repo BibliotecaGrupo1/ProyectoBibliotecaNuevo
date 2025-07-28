@@ -66,6 +66,31 @@ namespace ProyectoBiblioteca.Clases
             Console.WriteLine(" ID: " + this.Id);
             Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);
             Console.WriteLine(" Edad: " + this.edad);
+            Console.WriteLine();
+            Console.WriteLine("..............................................");
+            Console.WriteLine();
+        }
+
+        public int ObtenerID()
+        {
+            return this.Id;
+        }
+        public void ImprimirUsuarioParaAdministrador() // esto devuelve la información del usuario consultado
+        {
+            Console.WriteLine(" ID: " + this.Id);
+            Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);
+            Console.WriteLine(" Edad: " + this.edad);
+            Console.WriteLine(" Nombre de Usuario: " + this.NombreUsuario);
+            Console.WriteLine(" Correo: " + this.Correo);
+            Console.WriteLine(" Contraseña de Usuario: " + this.Contraseña);
+            Console.WriteLine();
+            Console.WriteLine("..............................................");
+            Console.WriteLine();
+        }
+
+        public void SetNuevaContraseña(string NuevaContraseña)
+        {
+            this.Contraseña = NuevaContraseña;
         }
 
         public void AñadirFAvorito(Libro aggLibroFav) // Esta funcion agrega los items de la lista Libros a una nuevalista dentro de la clase Usuario como favoritos para un determinado Usuario

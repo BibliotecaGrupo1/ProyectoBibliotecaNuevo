@@ -71,7 +71,7 @@ namespace ProyectoBiblioteca.Base
         public static void GuardarDatosLibros() // Guarda los datos en la BSD Libros
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream ArchivoLibros = new FileStream(NombreBaseDatosLibros, FileMode.Create);
+            var ArchivoLibros = new FileStream(NombreBaseDatosLibros, FileMode.Create);
             bf.Serialize(ArchivoLibros, BaseDatosLibros);
         }
         public static void CargarDatosLibros() // Carga los datos de la BSD Sesiones
@@ -133,13 +133,25 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
-        public static Libro BuscarLibroPorCodigoID(int id) // Pendiente de revisión
+        public static Libro BuscarLibroPorID(int id)
         {
-            foreach (Libro item in BaseDatosLibros)
+            foreach (Libro libro in BaseDatosLibros)
             {
-                if (item.BuscarLibroID() == id)
+                if (libro.Id == id)
                 {
-                    return item;
+                    return libro;
+                }
+            }
+            return null;
+        }
+
+        public static Usuario BuscarUsuarioPorID(int id)
+        {
+            foreach (Usuario User in BaseDatosUsuario)
+            {
+                if (User.Id == id)
+                {
+                    return User;
                 }
             }
             return null;
@@ -174,6 +186,39 @@ namespace ProyectoBiblioteca.Base
             foreach (Usuario usuario in BaseDatosUsuario)
             {
                 usuario.ImprimirUsuario();
+            }
+        }
+
+        public static void ListaImprimirUsuarioADM() // llama la funcion de imprimir en la clase Usuarios, para imprimir los datos de los Usuarios
+        {
+            foreach (Usuario usuario in BaseDatosUsuario)
+            {
+                usuario.ImprimirUsuarioParaAdministrador();
+            }
+        }
+
+        public static void EliminarLibro(int id) // Elimina un libro de la base de datos por su ID
+        {
+            Libro libroAEliminar = BuscarLibroPorID(id);
+            if (libroAEliminar != null)
+            {
+                BaseDatosLibros.Remove(libroAEliminar);
+                Console.WriteLine("Libro eliminado correctamente.");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Libro no encontrado.");
+            }
+        }
+
+        public static void ReorganizarIDs() // pendiente, posiblemente no irá en el codigo final
+        {
+            BaseDatosLibros = BaseDatosLibros.OrderBy(l => l.Id).ToList(); // Ordenar la lista por ID actual
+
+            for (int i = 0; i < BaseDatosLibros.Count; i++) // Reasignar IDs secuencialmente comenzando desde 1
+            {
+                BaseDatosLibros[i].Id = i + 1;
             }
         }
     }

@@ -14,10 +14,10 @@ namespace ProyectoBiblioteca.Clases
         public string Titulo;
         public string Autor;
         public string AñoPublicacion;
-        public string ISBN; // Podría ser útil agregar (código ISBN para identificar libros de manera única)
+        public string Estado; // Podría ser útil agregar (código ISBN para identificar libros de manera única)
         public string Genero; // Podría ser útil agregar (categoría o género del libro)
 
-        public Libro(string titulo, string autor, string añoPublicacion, string iSBN, string genero) // Constructor de la clase Libros
+        public Libro(string titulo, string autor, string añoPublicacion, string estado, string genero) // Constructor de la clase Libros
         {
             int LibroSecuancialID = Base.BaseDeDatos.BaseDatosLibros.Count() + 1;
 
@@ -25,7 +25,7 @@ namespace ProyectoBiblioteca.Clases
             this.Titulo = titulo;
             this.Autor = autor;
             this.AñoPublicacion = añoPublicacion;
-            this.ISBN = iSBN;
+            this.Estado = estado;
             this.Genero = genero;
 
             BaseDeDatos.BaseDatosLibros.Add(this);
@@ -36,22 +36,18 @@ namespace ProyectoBiblioteca.Clases
             Console.WriteLine("Título: " + this.Titulo);
             Console.WriteLine("Autor: " + this.Autor);
             Console.WriteLine("Año de Publicación: " + this.AñoPublicacion);
-            Console.WriteLine("ISBN: " + this.ISBN);
+            Console.WriteLine("Estado del Libro: " + this.Estado);
             Console.WriteLine("Género: " + this.Genero);
             Console.WriteLine();
-            Console.WriteLine(".......................................................");
+            Console.WriteLine("..............................................");
             Console.WriteLine();
         }
-        // Método para obtener el código del libro (ISBN) // pendiente de revisión
-        public string getCodigo()
+
+        public bool BuscarLibroID(int id)
         {
-            return ISBN;
+            return this.Id == id;
         }
 
-        public int BuscarLibroID() // En proceso*
-        {
-            return this.Id;
-        }
     }
 }
 
