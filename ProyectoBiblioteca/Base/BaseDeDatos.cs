@@ -15,9 +15,6 @@ namespace ProyectoBiblioteca.Base
         public static List<Usuario> BaseDatosUsuario = new List<Usuario>(); // Base de datos del Usuario.
         public static List<SesionUsuario> BaseDatosSesiones = new List<SesionUsuario>(); // Base de datos de las sesiones de un Usuario.
         public static List<Libro> BaseDatosLibros = new List<Libro>(); // Base de datos de los Libros en la biblioteca.
-        public static List<LibroEstado> BaseDatosLibrosEstados = new List<LibroEstado>();
-        public static List<UsuarioLogro> BaseDatosUsuarioLogros = new List<UsuarioLogro>();
-        public static List<Logro> BaseDatosLogros = new List<Logro>();
         public static List<Administradores> BaseDatosAdministradores = new List<Administradores>(); // Base de datos de los ADMINISTRADORES.
 
         private static string NombreBaseDatosUsuario = "DatosUsuario.dat"; // archivo de la base de datos de Usuario.
@@ -33,6 +30,7 @@ namespace ProyectoBiblioteca.Base
             BinaryFormatter bf = new BinaryFormatter();
             FileStream ArchivoUsuario = new FileStream(NombreBaseDatosUsuario, FileMode.Create);
             bf.Serialize(ArchivoUsuario, BaseDatosUsuario);
+            ArchivoUsuario.Close();
         }
         public static void CargarDatosUsuario() // Carga los datos de la BSD Usuario
         {
@@ -53,6 +51,7 @@ namespace ProyectoBiblioteca.Base
             BinaryFormatter bf = new BinaryFormatter();
             FileStream ArchivoSesionUsuario = new FileStream(NombreBaseDatosSesionUsuario, FileMode.Create);
             bf.Serialize(ArchivoSesionUsuario, BaseDatosSesiones);
+            ArchivoSesionUsuario.Close();
         }
         public static void CargarDatosSesionUsuario() // Carga los datos de la BSD Sesiones
         {
@@ -73,6 +72,7 @@ namespace ProyectoBiblioteca.Base
             BinaryFormatter bf = new BinaryFormatter();
             var ArchivoLibros = new FileStream(NombreBaseDatosLibros, FileMode.Create);
             bf.Serialize(ArchivoLibros, BaseDatosLibros);
+            ArchivoLibros.Close();
         }
         public static void CargarDatosLibros() // Carga los datos de la BSD Sesiones
         {
@@ -93,6 +93,7 @@ namespace ProyectoBiblioteca.Base
             BinaryFormatter bf = new BinaryFormatter();
             FileStream ArchivoAdministradores = new FileStream(NombreBaseDatosAdministradores, FileMode.Create);
             bf.Serialize(ArchivoAdministradores, BaseDatosAdministradores);
+            ArchivoAdministradores.Close();
         }
         public static void CargarDatosAdministradores() // Carga los datos de la BSD Administradores
         {
@@ -107,8 +108,7 @@ namespace ProyectoBiblioteca.Base
 
 
 
-
-
+        /////////////////////////       FUNCIONES       /////////////////////////
         public static Usuario BuscarNombreUsuario(string usuario) // Esto llama la función que devuelve datos privador, para confirmar que el usuario se encuentre registrado
         {
             foreach (Usuario user in BaseDatosUsuario)
@@ -173,14 +173,6 @@ namespace ProyectoBiblioteca.Base
             }
         }
 
-        public static void ListaImprimirAdmins() // llama la funcion imprimir en la clase Administradores, para imprimir los datos de Administradores
-        {
-            foreach (Administradores administradores in BaseDatosAdministradores)
-            {
-                administradores.ImprimirAdmin();
-            }
-        }
-
         public static void ListaImprimirUsuario() // llama la funcion de imprimir en la clase Usuarios, para imprimir los datos de los Usuarios
         {
             foreach (Usuario usuario in BaseDatosUsuario)
@@ -212,13 +204,23 @@ namespace ProyectoBiblioteca.Base
             }
         }
 
-        public static void ReorganizarIDs() // pendiente, posiblemente no irá en el codigo final
+        public static void ReorganizarIDsLibros() // pendiente, posiblemente no irá en el codigo final
         {
             BaseDatosLibros = BaseDatosLibros.OrderBy(l => l.Id).ToList(); // Ordenar la lista por ID actual
 
             for (int i = 0; i < BaseDatosLibros.Count; i++) // Reasignar IDs secuencialmente comenzando desde 1
             {
                 BaseDatosLibros[i].Id = i + 1;
+            }
+        }
+
+        public static void ReorganizarIDsUsuario() // pendiente, posiblemente no irá en el codigo final
+        {
+            BaseDatosUsuario = BaseDatosUsuario.OrderBy(l => l.Id).ToList(); // Ordenar la lista por ID actual
+
+            for (int i = 0; i < BaseDatosUsuario.Count; i++) // Reasignar IDs secuencialmente comenzando desde 1
+            {
+                BaseDatosUsuario[i].Id = i + 1;
             }
         }
     }

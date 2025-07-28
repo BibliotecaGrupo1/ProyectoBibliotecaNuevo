@@ -14,8 +14,8 @@ namespace ProyectoBiblioteca.Clases
         public string Titulo;
         public string Autor;
         public string AñoPublicacion;
-        public string Estado; // Podría ser útil agregar (código ISBN para identificar libros de manera única)
-        public string Genero; // Podría ser útil agregar (categoría o género del libro)
+        public string Estado;
+        public string Genero;
 
         public Libro(string titulo, string autor, string añoPublicacion, string estado, string genero) // Constructor de la clase Libros
         {
@@ -43,7 +43,7 @@ namespace ProyectoBiblioteca.Clases
             Console.WriteLine();
         }
 
-        public bool BuscarLibroID(int id)
+        public bool BuscarLibroID(int id) // esto sirve para devolver un libro y sus datospor su ID
         {
             return this.Id == id;
         }

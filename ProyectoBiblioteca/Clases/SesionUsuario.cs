@@ -21,7 +21,6 @@ namespace ProyectoBiblioteca.Clases
             this.Id = secuenciaID;
             this.NombreUsuario = nombreUsuario;
             this.Correo = correo;
-            //this.UsuarioID = usuarioID;
 
             BaseDeDatos.BaseDatosSesiones.Add(this);
         }

@@ -26,6 +26,7 @@ namespace ProyectoBiblioteca
         {
             while (true)
             {
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
                 Console.WriteLine("░░██████╗░██╗██████╗░██╗░░░░░██╗░█████╗░████████╗███████╗░█████╗░░█████╗░░░");
@@ -56,21 +57,22 @@ namespace ProyectoBiblioteca
                 switch (opcion)
                 {
                     case "1":
+                        Console.Clear();
                         crearCuenta();
-                        BaseDeDatos.GuardarDatosUsuario();
-                        BaseDeDatos.GuardarDatosSesionUsuario();
                         break;
                     case "2":
+                        Console.Clear();
                         iniciarSesion();
                         break;
                     case "3":
                         Console.WriteLine("Saliendo del sistema...");
                         return;
                     case "0801":
+                        Console.Clear();
                         RegistrarAdministrador();
-                        BaseDeDatos.GuardarDatosAdministradores();
                         break;
                     case "2001":
+                        Console.Clear();
                         IniciarSesionAdmin();
                         break;
                     default:
@@ -131,6 +133,8 @@ namespace ProyectoBiblioteca
             Console.Write("Cuenta Creada con éxito! Presione Enter para continuar..."); // El mensaje que se mostrará cuando el registro se complete correctamente.
             Usuario ObjUsuario = new Usuario(nombres, apellidos, Fecha_Nacimiento, nombreUsuario, correo, contraseña);
             SesionUsuario objSesionUsuario = new SesionUsuario(nombreUsuario, correo);
+            BaseDeDatos.GuardarDatosUsuario();
+            BaseDeDatos.GuardarDatosSesionUsuario();
             Console.ReadLine();
             Console.Clear();
 
@@ -228,9 +232,9 @@ namespace ProyectoBiblioteca
                         Console.WriteLine("╔════════════════════════════════════════════╗");
                         Console.WriteLine("║                MENU DE USUARIO             ║");
                         Console.WriteLine("╚════════════════════════════════════════════╝");
-                        Console.WriteLine(" 3. Ver Perfil de Usuario");
-                        Console.WriteLine(" 1. Agregar libro a mi lista");
-                        Console.WriteLine(" 2. Listar todos mis libros");
+                        Console.WriteLine(" 1. Ver Perfil de Usuario");
+                        Console.WriteLine(" 2. Agregar libro a mi lista");
+                        Console.WriteLine(" 3. Listar todos mis libros");
                         Console.WriteLine(" 4. Cerrar Sesión");
                         Console.WriteLine();
                         Console.Write(" Seleccione una opción: ");
@@ -281,6 +285,7 @@ namespace ProyectoBiblioteca
             Console.WriteLine("Ya puedes continuar como administrador.");
             
             Administradores ObjAdmin = new Administradores(AdminUsuario, fechaNacimiento, adminContraseña);
+            BaseDeDatos.GuardarDatosAdministradores();
             Console.ReadLine();
             Console.Clear();
         }
@@ -324,45 +329,52 @@ namespace ProyectoBiblioteca
                         Console.WriteLine("║            MENU OPCIONAL DE LIBROS         ║║           MENU OPCIONAL DE USUARIOS        ║"); // Se usó este estilo compacto para mejorar el resultado visual, y no ocupar mucho espacio en la pantalla de impresión
                         Console.WriteLine("╚════════════════════════════════════════════╝╚════════════════════════════════════════════╝");
                         Console.WriteLine(" 1. Agregar Libro.                               5. Listar Usuarios.");
-                        Console.WriteLine(" 2. Ver Lista de Libros.                         6. Modificar un Usuario."); //6. Listar Sesiones de Usuario.");
-                        Console.WriteLine(" 3. Modificar Datos de Libro.                    7. Eliminar un usuario.");  //7. Modificar un Usuario.");
-                        Console.WriteLine(" 4. Eliminar Libro.");                              //8. Eliminar un usuario.");
+                        Console.WriteLine(" 2. Ver Lista de Libros.                         6. Modificar un Usuario.");
+                        Console.WriteLine(" 3. Modificar Datos de Libro.                    7. Eliminar un usuario.");
+                        Console.WriteLine(" 4. Eliminar Libro.");
                         Console.WriteLine();
                         Console.WriteLine(" 8. Salir al Menú Principal");
                         Console.WriteLine();
                         Console.Write(" Seleccione una opción: ");
 
                         string opcionAdmin = Console.ReadLine();
-
+                        Console.Clear();
                         switch (opcionAdmin)
                         {
                             case "1": // el bucle de opciones con operaciones solo disponibles para ADMINISTRADORES
                                 Console.Clear();
                                 AgregarNuevoLibro(); // Registrar un nuevo libro
+                                Console.Clear();
                                 break;
                             case "2":
                                 Console.Clear();
                                 ListaLibros(); // Lista de todos los libros
+                                Console.Clear();
                                 break;
                             case "3":
                                 Console.Clear();
                                 ModificarLibros(); // Modificar información de libros
+                                Console.Clear();
                                 break;
                             case "4":
                                 Console.Clear();
                                 EliminarLibro(); // Eliminar un libro de la lista
+                                Console.Clear();
                                 break;
                             case "5":
                                 Console.Clear();
-                                ListaUsuarios();
+                                ListaUsuarios(); // Lista de Usuarios
+                                Console.Clear();
                                 break;
                             case "6":
                                 Console.Clear();
-                                ModificarUsuarioComoAdmin();
+                                ModificarUsuarioComoAdmin(); // Modificar Usuarios
+                                Console.Clear();
                                 break;
                             case "7":
                                 Console.Clear();
-                                EliminarUsuario();
+                                EliminarUsuario(); // Eliminar Usuarios
+                                Console.Clear();
                                 break;
                             case "8":
                                 Console.WriteLine("Saliendo del modo ADMIN...");
@@ -382,6 +394,7 @@ namespace ProyectoBiblioteca
         /////////////////////////       REGISTRO DE LIBROS       /////////////////////////
         private static void AgregarNuevoLibro()
         {
+            Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════╗");
             Console.WriteLine("║      BIENVENIDO AL REGISTRO DE LIBROS      ║"); // Este es el proceso de registrar o añadir un nuevo libro a la biblioteca
             Console.WriteLine("╚════════════════════════════════════════════╝");
@@ -417,6 +430,7 @@ namespace ProyectoBiblioteca
         /////////////////////////       LISTA DE TODOS LOS LIBROS       /////////////////////////
         private static void ListaLibros()
         {
+            Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════╗");
             Console.WriteLine("║      LISTA DE LIBROS EN LA BIBLIOTECA      ║"); // Esto imprime la lista completa de todos los libros en la biblioteca
             Console.WriteLine("╚════════════════════════════════════════════╝");
@@ -425,11 +439,13 @@ namespace ProyectoBiblioteca
             Console.WriteLine();
             Console.WriteLine("Presiona ENTER para continuar...");
             Console.ReadLine();
+            Console.Clear();
         }
 
         /////////////////////////       MODIFICAR LIBROS       /////////////////////////
         private static void ModificarLibros()
         {
+            Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════╗");
             Console.WriteLine("║     MODIFICAR LIBROS DE LA BIBLIOTECA      ║"); // Esto imprime los libros y proporciona las opciones correspondientes para modificar el libro en cuestión
             Console.WriteLine("╚════════════════════════════════════════════╝");
@@ -443,10 +459,10 @@ namespace ProyectoBiblioteca
             if (objLibro != null)
             {
                 Console.Clear();
-                Console.WriteLine("Libro encontrado."); // Muestra el mensaje de libro encontrado a continuación de sus datos segun la consulta
+                Console.WriteLine("Libro seleccionado: "); // Muestra el mensaje de libro encontrado a continuación de sus datos segun la consulta
                 objLibro.MostrarLibros();
 
-                Console.WriteLine("Ingrese el nuevo título del libro: "); // Nuevo título del libro
+                Console.Write("Ingrese el nuevo título del libro: "); // Nuevo título del libro
                 string NuevoTitulo = Console.ReadLine();
                 Console.WriteLine();
 
@@ -482,12 +498,14 @@ namespace ProyectoBiblioteca
                 Console.WriteLine("No se encontró el libro especificado.");
                 Console.WriteLine("Volviendo al menu ADMINISTRADOR...");
                 Console.ReadLine();
+                Console.Clear();
             }
         }
 
         /////////////////////////       ELIMINAR LIBROS       /////////////////////////
         private static void EliminarLibro()
         {
+            Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════╗");
             Console.WriteLine("║      ELIMINAR LIBROS DE LA BIBLIOTECA      ║"); // Esto imprime los libros y proporciona las opciones correspondientes para modificar el libro en cuestión
             Console.WriteLine("╚════════════════════════════════════════════╝");
@@ -501,8 +519,7 @@ namespace ProyectoBiblioteca
             if (objLibro != null)
             {
                 Console.Clear();
-                Console.WriteLine("Libro encontrado.");
-                Console.WriteLine();
+                Console.WriteLine("Libro seleccionado:");
                 objLibro.MostrarLibros();
                 Console.WriteLine("¿Está seguro que desea eliminar el libro? (S/N)");
                 string confirmacion = Console.ReadLine();
@@ -510,9 +527,11 @@ namespace ProyectoBiblioteca
                 {
                     //BaseDeDatos.EliminarLibro(idLibro); // Código #2 para modificación: Cambiado para pasar el ID en lugar del objeto
                     Base.BaseDeDatos.BaseDatosLibros.Remove(objLibro);
-                    //BaseDeDatos.GuardarDatosLibros();
+                    BaseDeDatos.ReorganizarIDsLibros();
+                    BaseDeDatos.GuardarDatosLibros();
                     Console.WriteLine("Libro eliminado correctamente.");
                     Console.ReadLine();
+                    Console.Clear();
                 }
                 else
                 {
@@ -520,6 +539,7 @@ namespace ProyectoBiblioteca
                     Console.WriteLine("Operación cancelada.");
                     Console.WriteLine("Volviendo al menu ADMINISTRADOR...");
                     Console.ReadLine();
+                    Console.Clear();
                 }
             }
             else
@@ -528,12 +548,14 @@ namespace ProyectoBiblioteca
                 Console.WriteLine("No se encontró el libro especificado.");
                 Console.WriteLine("Volviendo al menu ADMINISTRADOR...");
                 Console.ReadLine();
+                Console.Clear();
             }
         }
 
         /////////////////////////       LISTA DE USUARIOS       /////////////////////////
         private static void ListaUsuarios()
         {
+            Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════╗");
             Console.WriteLine("║     LISTA DE USUARIOS EN LA BIBLIOTECA     ║"); // Esto imprime la lista completa de todos los libros en la biblioteca
             Console.WriteLine("╚════════════════════════════════════════════╝");
@@ -542,11 +564,13 @@ namespace ProyectoBiblioteca
             Console.WriteLine();
             Console.WriteLine("Presiona ENTER para continuar...");
             Console.ReadLine();
+            Console.Clear();
         }
 
         /////////////////////////       MODIFICAR USUARIOS       /////////////////////////
         private static void ModificarUsuarioComoAdmin()
         {
+            Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════╗");
             Console.WriteLine("║    MODIFICAR USUARIOS DE LA BIBLIOTECA     ║"); // Esto imprime los libros y proporciona las opciones correspondientes para modificar el libro en cuestión
             Console.WriteLine("╚════════════════════════════════════════════╝");
@@ -575,25 +599,26 @@ namespace ProyectoBiblioteca
                 objUsuario.SetNuevaContraseña(NuevaContraseña);
                 Base.BaseDeDatos.BaseDatosUsuario.RemoveAt(objUsuario.ObtenerID() - 1);
                 Base.BaseDeDatos.BaseDatosUsuario.Insert(objUsuario.ObtenerID() - 1, objUsuario);
-                //BaseDeDatos.GuardarDatosUsuario();
-                Console.WriteLine("Los datos del Libro fueron modificados correctamente");
+                BaseDeDatos.GuardarDatosUsuario();
+                Console.WriteLine("Los datos del Usuario fueron modificados correctamente");
                 Console.WriteLine("Presiona ENTER para continuar...");
                 Console.ReadLine();
-                
                 Console.Clear();
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine("No se encontró el libro especificado.");
+                Console.WriteLine("No se encontró el Usuario especificado.");
                 Console.WriteLine("Volviendo al menu ADMINISTRADOR...");
                 Console.ReadLine();
+                Console.Clear();
             }
         }
 
         /////////////////////////       ELIMINAR USUARIOS       /////////////////////////
         private static void EliminarUsuario()
         {
+            Console.Clear();
             Console.WriteLine("╔════════════════════════════════════════════╗");
             Console.WriteLine("║     ELIMINAR USUARIOS DE LA BIBLIOTECA     ║"); // Esto imprime los libros y proporciona las opciones correspondientes para modificar el libro en cuestión
             Console.WriteLine("╚════════════════════════════════════════════╝");
@@ -608,17 +633,17 @@ namespace ProyectoBiblioteca
             {
                 Console.Clear();
                 Console.WriteLine("Usuario seleccionado: ");
-                Console.WriteLine();
                 objUsuario.ImprimirUsuarioParaAdministrador();
                 Console.WriteLine("¿Está seguro que desea eliminar este Usuario? (S/N)");
                 string confirmacion = Console.ReadLine();
                 if (confirmacion?.ToUpper() == "S")
                 {
-                    //BaseDeDatos.EliminarLibro(idLibro); // Código #2 para modificación: Cambiado para pasar el ID en lugar del objeto
                     Base.BaseDeDatos.BaseDatosUsuario.Remove(objUsuario);
-                    //BaseDeDatos.GuardarDatosUsuario();
+                    BaseDeDatos.ReorganizarIDsUsuario();
+                    BaseDeDatos.GuardarDatosUsuario();
                     Console.WriteLine("Usuario eliminado correctamente.");
                     Console.ReadLine();
+                    Console.Clear();
                 }
                 else
                 {
@@ -626,6 +651,7 @@ namespace ProyectoBiblioteca
                     Console.WriteLine("Operación cancelada.");
                     Console.WriteLine("Volviendo al menu ADMINISTRADOR...");
                     Console.ReadLine();
+                    Console.Clear();
                 }
             }
             else
@@ -634,6 +660,7 @@ namespace ProyectoBiblioteca
                 Console.WriteLine("No se encontró al Usuario.");
                 Console.WriteLine("Volviendo al menu ADMINISTRADOR...");
                 Console.ReadLine();
+                Console.Clear();
             }
         }
     }

@@ -43,7 +43,7 @@ namespace ProyectoBiblioteca.Clases
 
         }
 
-        public string BuscarUserAdmin() // Esta funcion devuelve el nombre de administrador, está enlazada al inicio de sesión
+        public string BuscarUserAdmin() // Esta funcion devuelve el nombre de administrador, está enlazada al inicio de sesión para ADMINISTRADORES
         {
             return this.AdminUsuario;
         }

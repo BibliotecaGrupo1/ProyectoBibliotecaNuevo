@@ -22,10 +22,6 @@ namespace ProyectoBiblioteca.Clases
         private string Contraseña;
         public List<Libro> LibrosFavoritos;
 
-        //public int PuntosExperiencia;
-        //List<Logro> LogrosObtenidos;
-        //List<LibroEstado> LibrosEstados;
-
         // Constructor para inicializar un nuevo usuario
         public Usuario(string nombres, string apellidos, DateTime Fecha_Nacimiento, string nombreUsuario, string correo, string contraseña) //int puntosExperiencia, List<Logro> logrosObtenidos, List<LibroEstado> librosEstado)
         {
@@ -42,15 +38,10 @@ namespace ProyectoBiblioteca.Clases
             this.Contraseña = contraseña;
             this.LibrosFavoritos = new List<Libro>();
 
-            
-            //this.PuntosExperiencia = puntosExperiencia; (agregar esto al constructor)
-            //this.LogrosObtenidos = List<Logro> logrosObtenidos;
-            //this.LibrosEstados = librosEstado;
-
             BaseDeDatos.BaseDatosUsuario.Add(this);
         }
 
-        public string BuscarUsuario() // Función para devolver datos privados, devuelve el nombre de usuario
+        public string BuscarUsuario() // Función para devolver el nombre de usuario consultado
         {
             return this.NombreUsuario;
         }
@@ -71,11 +62,11 @@ namespace ProyectoBiblioteca.Clases
             Console.WriteLine();
         }
 
-        public int ObtenerID()
+        public int ObtenerID() // esto retorna la ID
         {
             return this.Id;
         }
-        public void ImprimirUsuarioParaAdministrador() // esto devuelve la información del usuario consultado
+        public void ImprimirUsuarioParaAdministrador() // esto devuelve la información del usuario consultado, mostrando la lista completa para los administradores
         {
             Console.WriteLine(" ID: " + this.Id);
             Console.WriteLine(" Nombre Completo: " + this.NombreCompleto);
@@ -88,7 +79,7 @@ namespace ProyectoBiblioteca.Clases
             Console.WriteLine();
         }
 
-        public void SetNuevaContraseña(string NuevaContraseña)
+        public void SetNuevaContraseña(string NuevaContraseña) // este es el metodo por el que se puede modificar datos privados de un usuario como su contraseña (sirve tanto para Administradores como para Usuarios
         {
             this.Contraseña = NuevaContraseña;
         }
