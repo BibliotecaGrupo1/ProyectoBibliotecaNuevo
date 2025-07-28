@@ -20,7 +20,8 @@ namespace ProyectoBiblioteca.Clases
         public string NombreUsuario;
         public string Correo;
         private string Contraseña;
-        public List<Libro> LibrosFavoritos;
+        public List<Libro> LibrosUsuario; // Esta lista puede ser utilizada para almacenar los libros que el usuario ha leído o está leyendo
+        public List<Logro> LogrosUsuario; // Agregado: Lista para almacenar los logros obtenidos por el usuario
 
         // Constructor para inicializar un nuevo usuario
         public Usuario(string nombres, string apellidos, DateTime Fecha_Nacimiento, string nombreUsuario, string correo, string contraseña) //int puntosExperiencia, List<Logro> logrosObtenidos, List<LibroEstado> librosEstado)
@@ -36,7 +37,8 @@ namespace ProyectoBiblioteca.Clases
             this.NombreUsuario = nombreUsuario;
             this.Correo = correo;
             this.Contraseña = contraseña;
-            this.LibrosFavoritos = new List<Libro>();
+            this.LibrosUsuario = new List<Libro>();
+            this.LogrosUsuario = new List<Logro>(); // Inicialización de la lista de logros
 
             BaseDeDatos.BaseDatosUsuario.Add(this);
         }
@@ -84,9 +86,22 @@ namespace ProyectoBiblioteca.Clases
             this.Contraseña = NuevaContraseña;
         }
 
-        public void AñadirFAvorito(Libro aggLibroFav) // Esta funcion agrega los items de la lista Libros a una nuevalista dentro de la clase Usuario como favoritos para un determinado Usuario
+
+        public void AñadirLibroUsuario(Libro aggLibro) // Esta funcion agrega los items de la lista Libros a una nuevalista dentro de la clase Usuario como libros leidos o en lectura para un determinado Usuario
         {
-            LibrosFavoritos.Add(aggLibroFav);
+            if (LibrosUsuario == null)
+            {
+                LibrosUsuario = new List<Libro>();
+            }
+            LibrosUsuario.Add(aggLibro);
+        }
+        public void AñadirLogro(Logro nuevoLogro)
+        {
+            if (LogrosUsuario == null)
+            {
+                LogrosUsuario = new List<Logro>();
+            }
+            LogrosUsuario.Add(nuevoLogro);
         }
     }
 }

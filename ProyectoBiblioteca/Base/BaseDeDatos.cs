@@ -145,6 +145,18 @@ namespace ProyectoBiblioteca.Base
             return null;
         }
 
+        public static Libro BuscarLibroPorCodigoID(int id) // Pendiente de revisión
+        {
+            foreach (Libro item in BaseDatosLibros)
+            {
+                if (item.BuscarLibroID(id)) // Se pasa el argumento "id" requerido
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
         public static Usuario BuscarUsuarioPorID(int id)
         {
             foreach (Usuario User in BaseDatosUsuario)

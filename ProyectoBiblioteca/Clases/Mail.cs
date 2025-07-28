@@ -3,6 +3,7 @@ using MimeKit;
 using System;
 using System.Net.Mail;
 using System.Net.Mime;
+using ContentDisposition = MimeKit.ContentDisposition;
 
 namespace ProyectoBiblioteca.Clases
 {

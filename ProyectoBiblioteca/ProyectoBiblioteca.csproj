@@ -78,6 +78,7 @@
     <Compile Include="Base\BaseDeDatos.cs" />
     <Compile Include="Clases\Administradores.cs" />
     <Compile Include="Clases\Libro.cs" />
+    <Compile Include="Clases\Logro.cs" />
     <Compile Include="Clases\Mail.cs" />
     <Compile Include="Clases\SesionUsuario.cs" />
     <Compile Include="Clases\Usuario.cs" />

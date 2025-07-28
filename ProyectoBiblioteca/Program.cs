@@ -133,6 +133,7 @@ namespace ProyectoBiblioteca
             Console.Write("Cuenta Creada con éxito! Presione Enter para continuar..."); // El mensaje que se mostrará cuando el registro se complete correctamente.
             Usuario ObjUsuario = new Usuario(nombres, apellidos, Fecha_Nacimiento, nombreUsuario, correo, contraseña);
             SesionUsuario objSesionUsuario = new SesionUsuario(nombreUsuario, correo);
+            Mail.EnviarCorreoBienvenida(correo, nombres);
             BaseDeDatos.GuardarDatosUsuario();
             BaseDeDatos.GuardarDatosSesionUsuario();
             Console.ReadLine();
@@ -242,6 +243,80 @@ namespace ProyectoBiblioteca
                         string opcionUsuario = Console.ReadLine();
                         switch (opcionUsuario)
                         {
+                            case "1": // esta opción llama a la función VerPerfilUsuario, que es la que permite ver el perfil del usuario
+                                Console.Clear();
+                                Console.WriteLine("╔════════════════════════════════════════════╗");
+                                Console.WriteLine("║            PERFIL DE USUARIO               ║");
+                                Console.WriteLine("╚════════════════════════════════════════════╝");
+                                objnombreUsuario.ImprimirUsuarioParaAdministrador();
+                                Console.WriteLine("Libros del usuario: ");
+                                foreach (var libro in objnombreUsuario.LibrosUsuario)
+                                {
+                                    libro.MostrarLibros();
+                                }
+                                Console.WriteLine("Presiona ENTER para continuar...");
+                                Console.ReadLine();
+                                break;
+                            case "2":
+                                Console.Clear();
+                                ListaLibros();
+                                Console.WriteLine("Ingrese el ID del libro que desea agregar a su lista de libros:");
+                                int idLibro = Convert.ToInt32(Console.ReadLine());
+                                Libro objLibroconsultado = BaseDeDatos.BuscarLibroPorCodigoID(idLibro); // esto valida que el ID del libro exista en la base de datos de libros
+                                if (objLibroconsultado != null) // si el libro existe, se agrega a la lista de libros del usuario
+                                {
+                                    objnombreUsuario.AñadirLibroUsuario(objLibroconsultado);
+                                    Console.WriteLine("Libro agregado a su lista de libros.");
+                                    BaseDeDatos.GuardarDatosUsuario(); // guarda los datos del usuario con el libro agregado
+                                    if (objnombreUsuario.LibrosUsuario.Count >= 1) // Entrega el logro "¡Primer Libro Agregado!" si el usuario tiene al menos un libro en su lista
+                                    {
+                                        Logro objLogro = new Logro(1, "¡Primer Libro Agregado!", "Has agregado tu primer libro a tu lista de lectura.", "Medalla1", TipoLogro.PrimerLibroAgregado, 1);
+                                        objnombreUsuario.AñadirLogro(objLogro);
+                                        Console.WriteLine("¡Felicidades! Has desbloqueado el logro Primer Libro agregado");
+                                        Mail.EnviarLogroCorreo(objnombreUsuario.Correo, objLogro.Nombre, objLogro.Descripcion); // envía un correo al usuario notificando el logro desbloqueado
+                                        BaseDeDatos.GuardarDatosUsuario(); // guarda los datos del usuario con el logro agregado
+                                        Console.WriteLine("Presiona ENTER para continuar...");
+                                    }
+                                    else if (objnombreUsuario.LibrosUsuario.Count >= 5) // Entrega el logro "¡Cinco Libros Agregados!" si el usuario tiene al menos cinco libros en su lista
+                                    {
+                                        Logro objLogro = new Logro(2, "¡Cinco Libros Agregados!", "Has agregado cinco libros a tu lista de lectura.", "Medalla2", TipoLogro.CincoLibrosAgregados, 1);
+                                        objnombreUsuario.AñadirLogro(objLogro);
+                                        Console.WriteLine("¡Felicidades! Has desbloqueado el logro Cinco Libros Agregados");
+                                        Mail.EnviarLogroCorreo(objnombreUsuario.Correo, objLogro.Nombre, objLogro.Descripcion); // envía un correo al usuario notificando el logro desbloqueado
+                                        BaseDeDatos.GuardarDatosUsuario(); // guarda los datos del usuario con el logro agregado
+                                        Console.WriteLine("Presiona ENTER para continuar...");
+                                    }
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("El ID del libro no existe.");
+                                }
+                                Console.WriteLine("Presiona ENTER para continuar...");
+
+                                Console.ReadLine();
+                                break;
+                            case "3": // esta opción llama a la función ListaLibros, que es la que permite listar todos los libros del usuario
+                                Console.Clear();
+                                Console.WriteLine("╔════════════════════════════════════════════╗");
+                                Console.WriteLine("║         LISTA DE LIBROS DEL USUARIO        ║");
+                                Console.WriteLine("╚════════════════════════════════════════════╝");
+                                if (objnombreUsuario.LibrosUsuario.Count > 0) // valida que la lista de libros del usuario no esté vacía
+                                {
+                                    Console.WriteLine("Libros del usuario: ");
+                                    foreach (var libro in objnombreUsuario.LibrosUsuario)
+                                    {
+                                        libro.MostrarLibros();
+                                    }
+                                    Console.WriteLine("Presiona ENTER para continuar...");
+                                    Console.ReadLine();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("No tienes libros en tu lista.");
+                                }
+                                break;
+
                             case "4": // aqui se implemente la misma logica de bucle para permanecer dentro del menu de usuario hasta que la opcion sea cerrar la sesion
                                 Console.Clear();
                                 Console.WriteLine("Volviendo al Menu Principal.");
